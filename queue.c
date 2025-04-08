@@ -1,18 +1,76 @@
 #include "queue.h"
 #include "tile_game.h"
+#include <stdlib.h>
+#include <stdio.h>
+#define SIZE_VIS 50000
+
+size_t vis_list[SIZE_VIS];
+
+int isSolved(struct game_state);
+int visited(size_t);
+
+long visIndex = 0;
 
 void enqueue(struct queue *q, struct game_state state) {
-  //insert at the head
+  //if the state has not been visited before, serialize and insert at the tail
+  size_t serState = serialize(state);
 
-  insert_at_head();
+  if(!visited(serState)){
+    insert_at_tail(&q->data, serState);
+    *(vis_list + visIndex) = serState;
+    visIndex++;
+    //printf("visIndex = %ld", visIndex);
+  }
 }
 
 struct game_state dequeue(struct queue *q){
-  //remove from the tail
-
-  return (struct game_state){0};
+  //remove from the head of the queue and deserialize
+  return deserialize(remove_from_head(&q->data));
 }
 
-int number_of_moves(struct game_state start){ 
-  
-  return 0; }
+int number_of_moves(struct game_state start){
+
+  struct game_state curState = start;
+  struct game_state nextState = curState;
+
+  struct linked_list init_list = {NULL};
+  struct queue* q = malloc(sizeof(struct queue));
+  q->data = init_list;
+
+  enqueue(q, start);
+
+  while(1){ 
+    curState = dequeue(q); //dequeue the next node in line
+
+    if(isSolved(curState)){ //if this node is the solution, stop.
+      free_list(q->data);
+      free(q);
+      return curState.num_steps; //return the depth
+    }else{ //otherwise, add its neighbors to the queue if possible
+      if(1){nextState = curState; move_up(&nextState);    enqueue(q, nextState);} //try to move up. may need to re add curState.num_steps--;
+      if(1){nextState = curState; move_down(&nextState);  enqueue(q, nextState);} //try to move down
+      if(1){nextState = curState; move_left(&nextState);  enqueue(q, nextState);} //try to move left
+      if(1){nextState = curState; move_right(&nextState); enqueue(q, nextState);} //try to move right
+    }
+  }
+}
+
+int isSolved(struct game_state state){
+  int solution[4][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}};
+
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      if(state.tiles[i][j] != solution[i][j]){
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
+int visited(size_t toCheck){
+  for(int i = 0; i < SIZE_VIS; i++){
+    if(toCheck == vis_list[i]){return 1;}
+  }
+  return 0;
+}

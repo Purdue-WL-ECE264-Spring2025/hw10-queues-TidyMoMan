@@ -1,0 +1,64 @@
+VALGRIND OUTPUT:
+==37== Memcheck, a memory error detector
+==37== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==37== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==37== Command: ./hw10 testcases/10.txt
+==37== 
+==37== 
+==37== HEAP SUMMARY:
+==37==     in use at exit: 535,144 bytes in 33,447 blocks
+==37==   total heap usage: 298,256 allocs, 264,809 frees, 16,692,912 bytes allocated
+==37== 
+==37== 67,104 bytes in 4,194 blocks are indirectly lost in loss record 1 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x1092A2: new_node (linked_list.c:10)
+==37==    by 0x10936B: insert_at_tail (linked_list.c:33)
+==37==    by 0x1097AF: enqueue (queue.c:19)
+==37==    by 0x109A28: number_of_moves (queue.c:50)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== 67,536 bytes in 4,221 blocks are indirectly lost in loss record 2 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x1092A2: new_node (linked_list.c:10)
+==37==    by 0x10936B: insert_at_tail (linked_list.c:33)
+==37==    by 0x1097AF: enqueue (queue.c:19)
+==37==    by 0x109A7A: number_of_moves (queue.c:51)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== 67,680 bytes in 4,230 blocks are indirectly lost in loss record 3 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x1092A2: new_node (linked_list.c:10)
+==37==    by 0x10936B: insert_at_tail (linked_list.c:33)
+==37==    by 0x1097AF: enqueue (queue.c:19)
+==37==    by 0x1099D6: number_of_moves (queue.c:49)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== 68,000 bytes in 4,250 blocks are indirectly lost in loss record 4 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x1092A2: new_node (linked_list.c:10)
+==37==    by 0x10936B: insert_at_tail (linked_list.c:33)
+==37==    by 0x1097AF: enqueue (queue.c:19)
+==37==    by 0x109984: number_of_moves (queue.c:48)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== 264,816 bytes in 16,551 blocks are definitely lost in loss record 5 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x1093C4: remove_from_head (linked_list.c:44)
+==37==    by 0x109813: dequeue (queue.c:28)
+==37==    by 0x1098EA: number_of_moves (queue.c:43)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== 270,328 (8 direct, 270,320 indirect) bytes in 1 blocks are definitely lost in loss record 6 of 6
+==37==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==37==    by 0x109898: number_of_moves (queue.c:37)
+==37==    by 0x1096FA: main (main.c:36)
+==37== 
+==37== LEAK SUMMARY:
+==37==    definitely lost: 264,824 bytes in 16,552 blocks
+==37==    indirectly lost: 270,320 bytes in 16,895 blocks
+==37==      possibly lost: 0 bytes in 0 blocks
+==37==    still reachable: 0 bytes in 0 blocks
+==37==         suppressed: 0 bytes in 0 blocks
+==37== 
+==37== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 0 from 0)
+

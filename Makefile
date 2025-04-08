@@ -5,10 +5,12 @@ APP = hw10
 
 .PHONY: clean
 
+
 $(APP): $(OBJS)
 	$(CC) $(CFLAGS) *.o -o $(APP)
 
 clean:
+	clear
 	/bin/rm -rf *.o
 	/bin/rm -rf $(APP)
 
